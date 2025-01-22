@@ -1,0 +1,32 @@
+---
+- name: Basic Server Configuration
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  vars_files:
+    - vars/secrets.yml  # Ensure the correct relative path
+
+  tasks:
+    - name: Disable UFW
+      community.general.ufw:
+        state: disabled
+
+    - name: Allow HTTP and HTTPS access for specific IPs
+      community.general.ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: tcp
+        from_ip: "{{ item.ip }}"
+      loop:
+        - { ip: "10.50.1.150", port: "80" }
+        - { ip: "10.50.1.150", port: "443" }
+        - { ip: "10.50.1.36", port: "80" }
+        - { ip: "10.50.1.36", port: "443" }
+        - { ip: "10.50.1.157", port: "80" }
+        - { ip: "10.50.1.157", port: "443" }
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+    
