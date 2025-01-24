@@ -1,0 +1,9 @@
+---
+- name: Disable UFW
+  hosts: all
+  become: yes
+  tasks:
+    - name: Disable UFW
+      community.general.ufw:
+        state: enabled
+
