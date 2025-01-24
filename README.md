@@ -11,3 +11,5 @@ This disables the UFW firewall - used in collective playbooks
 **ufw-enable.yml**
 This enables the UFW firewall - used in collective playbooks
 
+**chain-playbooks.yml**
+Example of how you link playbooks together
