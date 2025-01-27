@@ -1,0 +1,24 @@
+---
+- name: Basic Update software
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  vars_files:
+    - vars/secrets.yml  # Ensure the correct relative path
+
+      #The following configuration sets the following:-
+      # The hostname and updates the hosts file
+
+
+
+  tasks:
+     - name: Set the hostname
+       ansible.builtin.hostname:
+         name: "{{ hostname }}"
+
+     - name: Update /etc/hosts file
+       ansible.builtin.lineinfile:
+         path: /etc/hosts
+         line: "127.0.1.1 {{ hostname }}"
+         state: present
