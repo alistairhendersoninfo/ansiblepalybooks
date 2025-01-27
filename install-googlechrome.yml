@@ -23,4 +23,18 @@
       ansible.builtin.command: dpkg -i google-chrome-stable_current_amd64.deb
       args:
         chdir: /opt
-      become: yes      
+      become: yes
+
+    - name: Check Google Chrome version
+      ansible.builtin.command: google-chrome --version
+      register: chrome_version_output
+      become: yes  
+
+    - name: Display Chrome version
+      ansible.builtin.debug:
+        msg: "Chrome Version: {{ chrome_version_output.stdout }}"
+      become: yes
+
+
+
+
