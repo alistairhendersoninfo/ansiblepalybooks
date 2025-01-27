@@ -1,0 +1,26 @@
+---
+- name: Install Google Chrome
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  vars_files:
+    - vars/secrets.yml  # Ensure the correct relative path
+  tasks:
+
+    - name: Remove old Chrome package if it exists
+      ansible.builtin.file:
+        path: /opt/google-chrome-stable_current_amd64.deb
+        state: absent
+
+    - name: Download Google Chrome package
+      ansible.builtin.get_url:
+        url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+        dest: "/opt/google-chrome-stable_current_amd64.deb"
+        mode: '0644'  
+
+    - name: Install Google Chrome
+      ansible.builtin.command: dpkg -i google-chrome-stable_current_amd64.deb
+      args:
+        chdir: /opt
+      become: yes      

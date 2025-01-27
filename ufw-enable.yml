@@ -1,9 +1,14 @@
 ---
-- name: Disable UFW
+- name: Enable UFW
   hosts: all
   become: yes
+  vars_files:
+    - vars/secrets.yml  # Ensure the correct relative path
+
+
+
   tasks:
-    - name: Disable UFW
+    - name: Enable UFW
       community.general.ufw:
         state: enabled
 

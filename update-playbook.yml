@@ -26,19 +26,19 @@
         - /var/lib/dpkg/lock-frontend
         - /var/lib/apt/lists/lock
         - /var/cache/apt/archives/lock
-
+     
     - name: Run dpkg configure to fix broken packages
       ansible.builtin.command: dpkg --configure -a
       become: yes
       register: dpkg_configure_result
       changed_when: dpkg_configure_result.rc != 0
       ignore_errors: yes
-
+      
 
     - name: Update using apt
       ansible.builtin.apt:
         name: "*"
-        state: latest
+        state: latest 
 
 
 
@@ -53,3 +53,4 @@
     - name: Enable UFW
       community.general.ufw:
         state: enabled
+

@@ -1,0 +1,5 @@
+---
+- import_playbook: ufw-disable.yml
+- import_playbook: install-googlechrome.yml
+- import_playbook: ufw-enable.yml
+
